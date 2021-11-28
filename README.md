@@ -22,3 +22,6 @@ go get -u github.com/gin-gonic/gin@v1.5.0
 
 - [Gin官方文档](https://github.com/gin-gonic/gin)
 - 《Go语言编程之旅：一起用Go做项目》  `Current Learn: P63`
+- [Code](https://github.com/go-programming-tour-book)
+- [online1](https://e.dangdang.com/pc/reader/index.html?id=1901224143)
+- [online2](https://golang2.eddycjy.com/posts/ch2/02-project-design/)
