@@ -1,6 +1,6 @@
 package model
 
-// 创建文章标签 model
+// 创建文章标签 model  相当于中间表
 
 type ArticleTag struct {
 	*Model
