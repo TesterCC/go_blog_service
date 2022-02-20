@@ -4,8 +4,8 @@ import "github.com/gin-gonic/gin"
 
 func NewRouter() *gin.Engine {
 	r := gin.New()
-	r.Use(gin.Logger())
-	r.Use(gin.Recovery())
+	r.Use(gin.Logger())   // 输出请求日志，并标准化日志的格式
+	r.Use(gin.Recovery()) // 异常捕获，针对每次请求处理进行Recovery处理，防止因为出现panic导致服务崩溃，同时将异常日志的格式标准化
 
 	apiv1 := r.Group("/api/v1")
 	{
