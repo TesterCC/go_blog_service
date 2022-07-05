@@ -10,8 +10,8 @@ import (
 // 声明了 Error 结构体用于表示错误的响应结果
 
 type Error struct {
-	code int `json:"code"`
-	msg string `json:"msg"`
+	code    int      `json:"code"`
+	msg     string   `json:"msg"`
 	details []string `json:"details"`
 }
 
@@ -23,8 +23,9 @@ var codes = map[int]string{}
 
 func NewError(code int, msg string) *Error {
 	// 这种语法判断key是否在map中,即code是否在codes map中
-	if _,ok := codes[code]; ok {
-		panic(fmt.Sprintf("错误码%d已存在，请更换一个使用", code))
+	if _, ok := codes[code]; ok {
+		// 手动调用内置的 panic 函数去触发 panic 异常，panic 函数可接受任何值作为参数
+		panic(fmt.Sprintf("错误码 %d 已存在，请更换一个使用", code))  // FIXME：这里Sprintf报错推测是因为Golang 2021.2.2对go1.18的泛型支持不充分的原因；对于goland2021.3的最新版本，支持完整的go泛型。有需要的需要更新到这个版本。
 	}
 	codes[code] = msg
 	return &Error{code: code, msg: msg}

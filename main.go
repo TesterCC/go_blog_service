@@ -3,6 +3,7 @@ package main
 import (
 	"github.com/gin-gonic/gin"
 	"github.com/testercc/blog-service/global"
+	"github.com/testercc/blog-service/internal/model"
 	"github.com/testercc/blog-service/internal/routers"
 	"github.com/testercc/blog-service/pkg/setting"
 	"log"
@@ -37,7 +38,25 @@ func init() {
 	if err != nil {
 		log.Fatalf("init.setupSetting err: %v", err)
 	}
+
+	err = setupDBEngine()
+	if err != nil {
+		log.Fatalf("init.setupDBEngine err: %v", err)
+	}
 }
+
+func setupDBEngine() error {
+	var err error
+	//注意不要用 := , 因为 := 会重新声明并创建了左侧的新局部变量，因此在其它包中调用 global.DBEngine 变量时，它仍然是 nil，
+	//仍然是达不到可用标准，因为根本就没有赋值到真正需要赋值的包全局变量 global.DBEngine 上。
+	global.DBEngine, err = model.NewDBEngine(global.DatabaseSetting)
+	if err != nil {
+		return err
+	}
+
+	return nil
+}
+
 
 func setupSetting() error {
 	setting, err := setting.NewSetting()

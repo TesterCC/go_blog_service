@@ -1,6 +1,10 @@
 ## About Project
 
-最近在学Go和Gin，以此项目练手熟悉相关API
+最近在学Go和Gin，以此项目练手熟悉Gin相关API。
+
+## Environment Build
+
+PHPStudy + MySQL 8.0.12
 
 ## Command
 
