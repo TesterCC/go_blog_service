@@ -5,7 +5,9 @@ import (
 	"github.com/testercc/blog-service/global"
 	"github.com/testercc/blog-service/internal/model"
 	"github.com/testercc/blog-service/internal/routers"
+	"github.com/testercc/blog-service/pkg/logger"
 	"github.com/testercc/blog-service/pkg/setting"
+	"gopkg.in/natefinch/lumberjack.v2"
 	"log"
 	"net/http"
 	"time"
@@ -39,10 +41,29 @@ func init() {
 		log.Fatalf("init.setupSetting err: %v", err)
 	}
 
+	err = setupLogger()
+	if err != nil {
+		log.Fatalf("init.setupLogger err: %v", err)
+	}
+
 	err = setupDBEngine()
 	if err != nil {
 		log.Fatalf("init.setupDBEngine err: %v", err)
 	}
+}
+
+// 在 init 方法中新增了日志组件的流程，并在 setupLogger 方法内部对 global 的包全局变量 Logger 进行了初始化，
+// 需要注意的是我们使用了 lumberjack 作为日志库的 io.Writer，并且设置日志文件所允许的最大占用空间为 600MB、日志文件最大生存周期为 10 天，并且设置日志文件名的时间格式为本地时间。
+func setupLogger() error {
+	fileName := global.AppSetting.LogSavePath + "/" + global.AppSetting.LogFileName + global.AppSetting.LogFileExt
+	global.Logger = logger.NewLogger(&lumberjack.Logger{
+		Filename:  fileName,
+		MaxSize:   500,
+		MaxAge:    10,
+		LocalTime: true,
+	}, "", log.LstdFlags).WithCaller(2)
+
+	return nil
 }
 
 func setupDBEngine() error {
@@ -56,7 +77,6 @@ func setupDBEngine() error {
 
 	return nil
 }
-
 
 func setupSetting() error {
 	setting, err := setting.NewSetting()
@@ -82,7 +102,6 @@ func setupSetting() error {
 	return nil
 }
 
-
 // v2: main()
 //func main() {
 //
@@ -105,7 +124,7 @@ func main() {
 	router := routers.NewRouter()
 	// 通过自定义 http.Server，设置了监听的 TCP Endpoint、处理的程序、允许读取/写入的最大时间、请求头的最大字节数等基础参数
 	s := &http.Server{
-		Addr:           ":"+global.ServerSetting.HttpPort,
+		Addr:           ":" + global.ServerSetting.HttpPort,
 		Handler:        router,
 		ReadTimeout:    global.ServerSetting.ReadTimeout,
 		WriteTimeout:   global.ServerSetting.WriteTimeout,
@@ -116,8 +135,11 @@ func main() {
 	//fmt.Println(global.AppSetting)
 	//fmt.Println(global.DatabaseSetting)
 
+	//log.Fatal("Server Test Log")  // debug
 	// 开始监听
 	s.ListenAndServe()
+
+
 }
 
 // test: curl http://127.0.0.1:8080/api/v1/tags

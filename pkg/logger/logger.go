@@ -25,6 +25,7 @@ const (
 	LevelPanic
 )
 
+// 日志分级相关的代码 分为 Debug、Info、Warn、Error、Fatal、Panic 六个日志等级，便于在不同的使用场景中记录不同级别的日志。
 func (l Level) String() string {
 	switch l {
 	case LevelDebug:
@@ -43,6 +44,13 @@ func (l Level) String() string {
 	return ""
 }
 
+/* 开始编写具体的方法去进行日志的实例初始化和标准化参数绑定
+WithLevel：设置日志等级。
+WithFields：设置日志公共字段。
+WithContext：设置日志上下文属性。
+WithCaller：设置当前某一层调用栈的信息（程序计数器、文件信息、行号）。
+WithCallersFrames：设置当前的整个调用栈信息。
+*/
 type Logger struct {
 	newLogger *log.Logger
 	ctx       context.Context
@@ -60,6 +68,7 @@ func (l *Logger) clone() *Logger {
 	return &nl
 }
 
+// WithFields：设置日志公共字段。
 func (l *Logger) WithFields(f Fields) *Logger {
 	ll := l.clone()
 	if ll.fields == nil {
@@ -71,12 +80,14 @@ func (l *Logger) WithFields(f Fields) *Logger {
 	return ll
 }
 
+// WithContext：设置日志上下文属性。
 func (l *Logger) WithContext(ctx context.Context) *Logger {
 	ll := l.clone()
 	ll.ctx = ctx
 	return ll
 }
 
+// WithCaller：设置当前某一层调用栈的信息（程序计数器、文件信息、行号）。
 func (l *Logger) WithCaller(skip int) *Logger {
 	ll := l.clone()
 	pc, file, line, ok := runtime.Caller(skip)
@@ -88,6 +99,7 @@ func (l *Logger) WithCaller(skip int) *Logger {
 	return ll
 }
 
+// WithCallersFrames：设置当前的整个调用栈信息。
 func (l *Logger) WithCallersFrames() *Logger {
 	maxCallerDepth := 25
 	minCallerDepth := 1
@@ -118,6 +130,7 @@ func (l *Logger) WithTrace() *Logger {
 	return l
 }
 
+// 编写日志内容的格式化和日志输出动作的相关方法
 func (l *Logger) JSONFormat(level Level, message string) map[string]interface{} {
 	data := make(Fields, len(l.fields)+4)
 	data["level"] = level.String()
@@ -154,6 +167,7 @@ func (l *Logger) Output(level Level, message string) {
 	}
 }
 
+//先前定义的日志分级，编写对应的日志输出的外部方法
 func (l *Logger) Debug(ctx context.Context, v ...interface{}) {
 	l.WithContext(ctx).WithTrace().Output(LevelDebug, fmt.Sprint(v...))
 }

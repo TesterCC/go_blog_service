@@ -20,6 +20,7 @@ go get -u github.com/gin-gonic/gin
 
 # 2.指定版本
 go get -u github.com/gin-gonic/gin@v1.5.0
+go get -u gopkg.in/natefinch/lumberjack.v2
 ```
 
 ## Dev Design

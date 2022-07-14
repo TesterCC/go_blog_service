@@ -3,6 +3,7 @@ package model
 import (
 	"fmt"
 	"github.com/jinzhu/gorm"
+	_ "github.com/jinzhu/gorm/dialects/mysql"   // 引入数据库驱动注册及初始化
 	"github.com/testercc/blog-service/global"
 	"github.com/testercc/blog-service/pkg/setting"
 )
