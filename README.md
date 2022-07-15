@@ -45,6 +45,13 @@ go get -u gopkg.in/natefinch/lumberjack.v2
 - scripts：各类构建，安装，分析等操作的脚本。
 - third_party：第三方的资源工具，例如 Swagger UI。
 
+## Test URL
+
+测试url的命令
+```shell
+curl -v http://127.0.0.1:8000/api/v1/articles/1
+```
+
 ## Database Initial
 
 ### Create database
@@ -131,3 +138,58 @@ go get go.mongodb.org/mongo-driver/mongo
 ```
 dep ensure -add "go.mongodb.org/mongo-driver/mongo"
 ```
+
+## Install 3rd-party Log Lib
+```
+go get -u gopkg.in/natefinch/lumberjack.v2
+```
+
+## Install Swagger
+安装 Go 对应的开源 Swagger 相关联的库，在项目 blog-service 根目录下执行安装命令，如下：
+```
+$ go get -u github.com/swaggo/swag/cmd/swag
+$ go get -u github.com/swaggo/gin-swagger 
+$ go get -u github.com/swaggo/files
+$ go get -u github.com/alecthomas/template
+```
+安装注意事项：
+
+由于Windows下没有bin目录，所以需要先找到swag的下载位置。
+在该目录下执行go install 会生成swag.exe到gopath的主目录下。
+这样swag.exe就可以用来执行swag init操作了。
+```
+go env 查看pkg安装目录，找到swag的下载位置，一般为$GOPATH的路径下
+C:~\go\pkg\mod\github.com\swaggo\swag@v1.8.3\cmd\swag
+
+# 会生成swag.exe到gopath的主目录下
+> go install
+# 检验是否安装成功     
+> swag -v
+swag.exe version v1.8.3
+```
+
+在该目录下执行go install 会生成swag.exe到gopath的主目录下。
+这个swag.exe就可以用来执行swag init操作了。
+
+## Generate Swagger Docs
+
+在完成了所有的注解编写后，回到项目根目录下，执行如下命令：
+```shell
+$ swag init
+```
+在执行命令完毕后，会发现在 docs 文件夹生成 docs.go、swagger.json、swagger.yaml 三个文件。
+
+如果需要重新生成文档，则在项目根目录下再次执行 swag init。
+
+Swagger文档地址：`http://127.0.0.1:8000/swagger/index.html`
+
+实质上在初始化 docs 包时，会默认执行 init 方法，而在 init 方法中，会注册相关方法，主体逻辑是 swag 会在生成时去检索项目下的注解信息，
+然后将项目信息和接口路由信息按规范生成到包全局变量 doc 中去。 紧接着会在 ReadDoc() 方法中做一些 template 的模板映射等工作，完善 doc 的输出。
+
+
+## Validator
+
+使用开源项目 go-playground/validator 作为我们的本项目的基础库，它是一个基于标签来对结构体和字段进行值验证的一个验证器。
+
+REF:
+-[如何在windows下使用swaggo](https://blog.csdn.net/ran_Max/article/details/105718374)

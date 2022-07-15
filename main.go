@@ -2,6 +2,7 @@ package main
 
 import (
 	"github.com/gin-gonic/gin"
+	_ "github.com/testercc/blog-service/docs"   // 注意import，否则初始化报错
 	"github.com/testercc/blog-service/global"
 	"github.com/testercc/blog-service/internal/model"
 	"github.com/testercc/blog-service/internal/routers"
@@ -119,6 +120,12 @@ func setupSetting() error {
 //}
 
 // v3 启动配置通过配置获取
+// 针对项目写注解
+
+// @title Simple Blog System
+// @version 1.0
+// @description TesterCC - Security Development Blog
+// @termsOfService https://github.com/TesterCC/
 func main() {
 	gin.SetMode(global.ServerSetting.RunMode)
 	router := routers.NewRouter()
@@ -134,12 +141,12 @@ func main() {
 	//fmt.Println(global.ServerSetting)
 	//fmt.Println(global.AppSetting)
 	//fmt.Println(global.DatabaseSetting)
-
+	// global.Logger.Infof(nil,"%s: go-programming-tour-book/%s", "TesterCC","blog-service")  // debug test logger, log in /storage/file
 	//log.Fatal("Server Test Log")  // debug
 	// 开始监听
 	s.ListenAndServe()
 
-
 }
 
 // test: curl http://127.0.0.1:8080/api/v1/tags
+// Swagger 的地址 http://127.0.0.1:8000/swagger/index.html
