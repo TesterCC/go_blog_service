@@ -190,6 +190,8 @@ Swagger文档地址：`http://127.0.0.1:8000/swagger/index.html`
 ## Validator
 
 使用开源项目 go-playground/validator 作为我们的本项目的基础库，它是一个基于标签来对结构体和字段进行值验证的一个验证器。
+gin内部默认使用，如果要安装则执行如下命令：
+`go get -u github.com/go-playground/validator/v10`
 
 REF:
 -[如何在windows下使用swaggo](https://blog.csdn.net/ran_Max/article/details/105718374)
