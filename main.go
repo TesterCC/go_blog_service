@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"github.com/gin-gonic/gin"
 	_ "github.com/testercc/blog-service/docs"   // 注意import，否则初始化报错
 	"github.com/testercc/blog-service/global"
@@ -137,6 +138,9 @@ func main() {
 		WriteTimeout:   global.ServerSetting.WriteTimeout,
 		MaxHeaderBytes: 1 << 20,
 	}
+
+	// for debug
+	fmt.Println("[D] Launch server at 127.0.0.1:" + global.ServerSetting.HttpPort)
 	// for debug
 	//fmt.Println(global.ServerSetting)
 	//fmt.Println(global.AppSetting)

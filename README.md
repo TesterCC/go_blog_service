@@ -140,6 +140,11 @@ dep ensure -add "go.mongodb.org/mongo-driver/mongo"
 ```
 
 ## Install 3rd-party Log Lib
+
+```
+go get -u github.com/spf13/viper
+```
+
 ```
 go get -u gopkg.in/natefinch/lumberjack.v2
 ```
@@ -154,6 +159,7 @@ $ go get -u github.com/alecthomas/template
 ```
 安装注意事项：
 
+1.Windows 11
 由于Windows下没有bin目录，所以需要先找到swag的下载位置。
 在该目录下执行go install 会生成swag.exe到gopath的主目录下。
 这样swag.exe就可以用来执行swag init操作了。
@@ -170,6 +176,18 @@ swag.exe version v1.8.3
 
 在该目录下执行go install 会生成swag.exe到gopath的主目录下。
 这个swag.exe就可以用来执行swag init操作了。
+
+2.MacOS
+
+MacOS zsh 没有swag命令的处理方式：
+如果提示zsh: command not found: swag，先用`go env`看一下gopath的目录。
+找到目录大概这样GOPATH="/Users/xx/go/bin"，ls一下，看到有swag这个文件，试一下`/Users/xx/go/bin/swag -v`命令。
+执行后有类似"swag version v1.8.4"的回显。
+
+则可确认是本地swag没有加到环境变量，我的终端是zsh，编辑一下配置：
+vim ~/.zshrc
+export PATH="/Users/xx/go/bin:$PATH"
+保存退出后，重新打开Terminal即可正常使用swag命令。
 
 ## Generate Swagger Docs
 
