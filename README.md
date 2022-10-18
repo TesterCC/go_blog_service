@@ -64,6 +64,7 @@ IF
 ```
 
 ### Create blog_tag table
+use blog_service;
 
 ```mysql
 CREATE TABLE `blog_tag` (
