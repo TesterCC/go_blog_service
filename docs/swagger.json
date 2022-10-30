@@ -1,12 +1,22 @@
 {
     "swagger": "2.0",
     "info": {
-        "description": "TesterCC - Security Development Blog",
-        "title": "Simple Blog System",
+        "description": "TesterCC - Security Development Blog API Docs.",
+        "title": "Security Development Blog System",
         "termsOfService": "https://github.com/TesterCC/",
-        "contact": {},
+        "contact": {
+            "name": "API Support",
+            "url": "https://github.com/swaggo/swag/blob/master/README_zh-CN.md",
+            "email": "testerlyx@foxmail.com"
+        },
+        "license": {
+            "name": "Apache 2.0",
+            "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
+        },
         "version": "1.0"
     },
+    "host": "localhost:8888",
+    "basePath": "/api/v1",
     "paths": {
         "/api/v1/tags": {
             "get": {

@@ -2,8 +2,8 @@ package routers
 
 import (
 	"github.com/gin-gonic/gin"
-	swaggerFiles "github.com/swaggo/files"
-	ginSwagger "github.com/swaggo/gin-swagger"
+	swaggerFiles "github.com/swaggo/files"       // swagger embed files
+	ginSwagger "github.com/swaggo/gin-swagger"   // gin-swagger middleware
 	v1 "github.com/testercc/blog-service/internal/routers/api/v1"
 )
 
@@ -13,6 +13,7 @@ func NewRouter() *gin.Engine {
 	r.Use(gin.Recovery()) // 异常捕获，针对每次请求处理进行Recovery处理，防止因为出现panic导致服务崩溃，同时将异常日志的格式标准化
 	// 先同通过 swag init 把 Swagger API 所需要的文件都生成，再在 routers 中进行swagger默认初始化和注册对应的路由，在浏览器中访问  http://127.0.0.1:8000/swagger/index.html#/  swagger可根据需求修改
 	r.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
+	// 一般都是测试环境和本地使用，生产环境禁用Swagger，这样我们可以封装一个方法来调用。 ref:https://www.jianshu.com/p/93461613aa58
 
 	// 编写好路由的 Handler 方法后，只需要将其注册到对应的路由规则上
 	article := v1.NewArticle()

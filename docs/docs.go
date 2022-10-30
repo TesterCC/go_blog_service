@@ -11,7 +11,15 @@ const docTemplate = `{
         "description": "{{escape .Description}}",
         "title": "{{.Title}}",
         "termsOfService": "https://github.com/TesterCC/",
-        "contact": {},
+        "contact": {
+            "name": "API Support",
+            "url": "https://github.com/swaggo/swag/blob/master/README_zh-CN.md",
+            "email": "testerlyx@foxmail.com"
+        },
+        "license": {
+            "name": "Apache 2.0",
+            "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
+        },
         "version": "{{.Version}}"
     },
     "host": "{{.Host}}",
@@ -320,11 +328,11 @@ const docTemplate = `{
 // SwaggerInfo holds exported Swagger Info so clients can modify it
 var SwaggerInfo = &swag.Spec{
 	Version:          "1.0",
-	Host:             "",
-	BasePath:         "",
+	Host:             "localhost:8888",
+	BasePath:         "/api/v1",
 	Schemes:          []string{},
-	Title:            "Simple Blog System",
-	Description:      "TesterCC - Security Development Blog",
+	Title:            "Security Development Blog System",
+	Description:      "TesterCC - Security Development Blog API Docs.",
 	InfoInstanceName: "swagger",
 	SwaggerTemplate:  docTemplate,
 }
