@@ -123,10 +123,20 @@ func setupSetting() error {
 // v3 启动配置通过配置获取
 // 针对项目写注解
 
-// @title Simple Blog System
-// @version 1.0
-// @description TesterCC - Security Development Blog
+// @title          Security Development Blog System
+// @version        1.0
+// @description    TesterCC - Security Development Blog API Docs.
 // @termsOfService https://github.com/TesterCC/
+
+// @contact.name  API Support
+// @contact.url   https://github.com/swaggo/swag/blob/master/README_zh-CN.md
+// @contact.email testerlyx@foxmail.com
+
+// @license.name Apache 2.0
+// @license.url  http://www.apache.org/licenses/LICENSE-2.0.html
+
+// @host     localhost:8888
+// @BasePath /api/v1
 func main() {
 	gin.SetMode(global.ServerSetting.RunMode)
 	router := routers.NewRouter()

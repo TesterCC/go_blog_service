@@ -1,3 +1,4 @@
+basePath: /api/v1
 definitions:
   app.Pager:
     properties:
@@ -40,11 +41,18 @@ definitions:
       pager:
         $ref: '#/definitions/app.Pager'
     type: object
+host: localhost:8888
 info:
-  contact: {}
-  description: TesterCC - Security Development Blog
+  contact:
+    email: testerlyx@foxmail.com
+    name: API Support
+    url: https://github.com/swaggo/swag/blob/master/README_zh-CN.md
+  description: TesterCC - Security Development Blog API Docs.
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
   termsOfService: https://github.com/TesterCC/
-  title: Simple Blog System
+  title: Security Development Blog System
   version: "1.0"
 paths:
   /api/v1/tags:
