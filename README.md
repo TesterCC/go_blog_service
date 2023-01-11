@@ -2,6 +2,8 @@
 
 最近在学Go和Gin，以此项目练手熟悉Gin相关API。
 
+- [learn process](https://golang2.eddycjy.com/posts/ch2/05-validator/)
+
 ## Environment Build
 
 PHPStudy + MySQL 8.0.12
@@ -125,7 +127,7 @@ CREATE TABLE `blog_article_tag` (
 - [Code](https://github.com/go-programming-tour-book)
 - [online1](https://e.dangdang.com/pc/reader/index.html?id=1901224143)
 - [online2](https://golang2.eddycjy.com/posts/ch2/02-project-design/)
-
+- [github_code](https://github.com/eddycjy/blog)
 
 ## mongo驱动
 

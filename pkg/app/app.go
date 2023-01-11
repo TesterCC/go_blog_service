@@ -47,3 +47,12 @@ func (r *Response) ToErrorResponse(err *errcode.Error) {
 
 	r.Ctx.JSON(err.StatusCode(), response)
 }
+
+// custom
+func (r *Response) ToGeneralResponse(statusCode int, msg string, data interface{}) {
+	if data == nil {
+		data = gin.H{}
+	}
+	response := gin.H{"code": statusCode, "msg": msg, "data": data}
+	r.Ctx.JSON(statusCode, response)
+}

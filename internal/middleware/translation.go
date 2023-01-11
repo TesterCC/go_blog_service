@@ -1,6 +1,6 @@
 package middleware
 
-// 国际化处理，用于编写针对 validator 的语言包翻译的相关功能
+// 国际化处理，用于编写针对 validator 的语言包翻译的相关功能 -- 本项目可不用增加
 
 import (
 	"github.com/gin-gonic/gin"
