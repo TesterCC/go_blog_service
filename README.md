@@ -3,6 +3,7 @@
 最近在学Go和Gin，以此项目练手熟悉Gin相关API。
 
 - [learn process](https://golang2.eddycjy.com/posts/ch2/05-validator/)
+- [Official Code](https://github.com/go-programming-tour-book/blog-service)
 
 ## Environment Build
 
