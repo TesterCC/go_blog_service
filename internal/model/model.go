@@ -43,3 +43,8 @@ func NewDBEngine(databaseSetting *setting.DatabaseSettingS) (*gorm.DB, error) {
 
 	return db, nil
 }
+
+func updateTimeStampForCreateCallback(scope *gorm.Scope) {}
+func updateTimeStampForUpdateCallback(scope *gorm.Scope) {}
+func deleteCallback(scope *gorm.Scope) {}
+func addExtraSpaceIfExist(str string) string {}
