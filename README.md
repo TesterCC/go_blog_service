@@ -9,6 +9,14 @@
 
 PHPStudy + MySQL 8.0.12
 
+### set GO_PROXY
+
+in git bash: ` go env -w GOPROXY=https://goproxy.cn`
+
+### Windows10下修改pycharm的默认终端为git bash
+
+文件 -->设置 --> 工具 --> 终端 Terminal --> 应用程序设置 --> Shell path，修改为`C:\Program Files\Git\bin\bash.exe" --login`
+
 ## Command
 
 ```shell
@@ -169,6 +177,8 @@ $ go get -u github.com/alecthomas/template
 这样swag.exe就可以用来执行swag init操作了。
 ```
 go env 查看pkg安装目录，找到swag的下载位置，一般为$GOPATH的路径下
+
+cd ~/go/pkg/mod
 C:~\go\pkg\mod\github.com\swaggo\swag@v1.8.3\cmd\swag
 
 # 会生成swag.exe到gopath的主目录下
