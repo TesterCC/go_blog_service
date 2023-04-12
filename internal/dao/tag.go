@@ -1,48 +1,63 @@
 package dao
 
-type CountTagRequest struct {
-	Name  string `form:"name" binding:"max=100"`
-	State uint8 `form:"state,default=1" binding:"oneof=0 1"`
+import (
+	"github.com/testercc/blog-service/internal/model"
+	"github.com/testercc/blog-service/pkg/app"
+)
+
+// 在 dao 层进行了数据访问对象的封装，并针对业务所需的字段进行了处理。
+
+func (d *Dao) GetTag(id uint32, state uint8) (model.Tag, error) {
+	tag := model.Tag{Model: &model.Model{ID: id}, State: state}
+	return tag.Get(d.engine)
 }
 
-type TagListRequest struct {
-	Name  string `form:"name" binding:"max=100"`
-	State uint8  `form:"state,default=1" binding:"oneof=0 1"`
+func (d *Dao) GetTagList(name string, state uint8, page, pageSize int) ([]*model.Tag, error) {
+	tag := model.Tag{Name: name, State: state}
+	pageOffset := app.GetPageOffset(page, pageSize)
+	return tag.List(d.engine, pageOffset, pageSize)
 }
 
-type CreateTagRequest struct {
-	Name      string `form:"name" binding:"required,min=2,max=100"`
-	CreatedBy string `form:"created_by" binding:"required,min=2,max=100"`
-	State     uint8  `form:"state,default=1" binding:"oneof=0 1"`
+func (d *Dao) GetTagListByIDs(ids []uint32, state uint8) ([]*model.Tag, error) {
+	tag := model.Tag{State: state}
+	return tag.ListByIDs(d.engine, ids)
 }
 
-type UpdateTagRequest struct {
-	ID         uint32 `form:"id" binding:"required,gte=1"`
-	Name       string `form:"name" binding:"max=100"`
-	State      uint8  `form:"state" binding:"oneof=0 1"`
-	ModifiedBy string `form:"modified_by" binding:"required,min=2,max=100"`
+func (d *Dao) CountTag(name string, state uint8) (int, error) {
+	tag := model.Tag{Name: name, State: state}
+	return tag.Count(d.engine)
 }
 
-type DeleteTagRequest struct {
-	ID uint32 `form:"id" binding:"required,gte=1"`
+func (d *Dao) CreateTag(name string, state uint8, createdBy string) error {
+	tag := model.Tag{
+		Name:  name,
+		State: state,
+		Model: &model.Model{
+			CreatedBy: createdBy,
+		},
+	}
+
+	return tag.Create(d.engine)
 }
 
-//func (svc *Service) CountTag(param *CountTagRequest) (int, error) {
-//	return svc.dao.CountTag(param.Name, param.State)
-//}
-//
-//func (svc *Service) GetTagList(param *TagListRequest, pager *app.Pager) ([]*model.Tag, error) {
-//	return svc.dao.GetTagList(param.Name, param.State, pager.Page, pager.PageSize)
-//}
-//
-//func (svc *Service) CreateTag(param *CreateTagRequest) error {
-//	return svc.dao.CreateTag(param.Name, param.State, param.CreatedBy)
-//}
-//
-//func (svc *Service) UpdateTag(param *UpdateTagRequest) error {
-//	return svc.dao.UpdateTag(param.ID, param.Name, param.State, param.ModifiedBy)
-//}
-//
-//func (svc *Service) DeleteTag(param *DeleteTagRequest) error {
-//	return svc.dao.DeleteTag(param.ID)
-//}
+func (d *Dao) UpdateTag(id uint32, name string, state uint8, modifiedBy string) error {
+	tag := model.Tag{
+		Model: &model.Model{
+			ID: id,
+		},
+	}
+	values := map[string]interface{}{
+		"state":       state,
+		"modified_by": modifiedBy,
+	}
+	if name != "" {
+		values["name"] = name
+	}
+
+	return tag.Update(d.engine, values)
+}
+
+func (d *Dao) DeleteTag(id uint32) error {
+	tag := model.Tag{Model: &model.Model{ID: id}}
+	return tag.Delete(d.engine)
+}
