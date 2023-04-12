@@ -19,6 +19,7 @@ func NewTag() Tag {
 //func (t Tag) Get(c *gin.Context)    {}
 
 //todo: 标签模块的接口注解编写，接下来应当按照注解的含义和参考上述接口注解，完成文章模块接口注解的编写。
+//  curl -X GET 'http://127.0.0.1:8888/api/v1/tags?page=1&page_size=10
 
 // @Summary 获取多个标签
 // @Produce json
@@ -97,6 +98,8 @@ func (t Tag) Create(c *gin.Context) {
 	return
 }
 
+// testcase: curl -X PUT http://127.0.0.1:8888/api/v1/tags/4 -F state=0 -F modified_by=hacker
+
 // @Summary 更新标签
 // @Produce json
 // @Param   id          path     int              true  "标签 ID"
@@ -128,6 +131,9 @@ func (t Tag) Update(c *gin.Context) {
 	response.ToResponse(gin.H{})
 	return
 }
+
+
+// testcase: curl -X DELETE http://127.0.0.1:8888/api/v1/tags/5
 
 // @Summary 删除标签
 // @Produce json
