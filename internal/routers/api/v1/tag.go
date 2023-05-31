@@ -34,6 +34,8 @@ func NewTag() Tag {
 func (t Tag) List(c *gin.Context) {
 	param := service.TagListRequest{}
 	response := app.NewResponse(c)
+
+	// 入参校验和绑定
 	valid, errs := app.BindAndValid(c, &param)
 	if !valid {
 		global.Logger.Errorf(c, "app.BindAndValid errs: %v", errs)
@@ -43,6 +45,8 @@ func (t Tag) List(c *gin.Context) {
 
 	svc := service.New(c.Request.Context())
 	pager := app.Pager{Page: app.GetPage(c), PageSize: app.GetPageSize(c)}
+
+	// 获取标签总数
 	totalRows, err := svc.CountTag(&service.CountTagRequest{Name: param.Name, State: param.State})
 	if err != nil {
 		global.Logger.Errorf(c, "app.BindAndValid errs: %v", errs)
@@ -50,6 +54,7 @@ func (t Tag) List(c *gin.Context) {
 		return
 	}
 
+	// 获取标签列表
 	tags, err := svc.GetTagList(&param, &pager)
 	if err != nil {
 		global.Logger.Errorf(c, "app.BindAndValid errs: %v", errs)
@@ -57,6 +62,7 @@ func (t Tag) List(c *gin.Context) {
 		return
 	}
 
+	// 序列化结果集
 	response.ToResponseList(tags, totalRows)
 	return
 }

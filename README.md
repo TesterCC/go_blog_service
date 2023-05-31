@@ -227,3 +227,8 @@ gin内部默认使用，如果要安装则执行如下命令：
 
 REF:
 -[如何在windows下使用swaggo](https://blog.csdn.net/ran_Max/article/details/105718374)
+
+## progress
+
+2.8.3 新建 service 方法 
+https://golang2.eddycjy.com/posts/ch2/07-upload-file/

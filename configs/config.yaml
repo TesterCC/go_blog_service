@@ -9,6 +9,13 @@ App:    # 应用配置，设置默认每页数量、所允许的最大每页数�
   LogSavePath: storage/logs
   LogFileName: app
   LogFileExt: .log
+  UploadSavePath: storage/uploads
+  UploadServerUrl: http://127.0.0.1:8000/static
+  UploadImageMaxSize: 3  # MB
+  UploadImageAllowExts:
+    - .jpg
+    - .jpeg
+    - .png
 Database:    # 数据库配置，主要是连接实例所必需的基础参数。
   DBType: mysql
   Username: root  # 填写你的数据库账号
