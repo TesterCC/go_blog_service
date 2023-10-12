@@ -4,6 +4,17 @@
 
 - [learn process](https://golang2.eddycjy.com/posts/ch2/05-validator/)
 - [Official Code](https://github.com/go-programming-tour-book/blog-service)
+- [Gin Official Doc](https://gin-gonic.com/zh-cn/docs/)
+- [Gorm Official Doc](https://gorm.io/zh_CN/docs/index.html)
+
+## todo
+
+```
+after finish version 1:
+
+"github.com/jinzhu/gorm" need to udpate to "gorm.io/gorm"
+
+```
 
 ## Environment Build
 
